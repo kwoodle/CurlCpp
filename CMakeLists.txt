@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.28)
+set(CMAKE_CXX_STANDARD 11)
+project(CurlCpp_examples)
+
+include(FindPkgConfig)
+pkg_check_modules(CURLCPP REQUIRED curlcpp)
+message(STATUS "CURLCPP_LIBRARIES = ${CURLCPP_LIBRARIES}")
+message(STATUS "CURLCPP_LIBRARY_DIRS = ${CURLCPP_LIBRARY_DIRS}")
+message(STATUS "CURLCPP_INCLUDE_DIRS = ${CURLCPP_INCLUDE_DIRS}")
+include_directories(${CURLCPP_INCLUDE_DIRS})
+
+pkg_check_modules(LIBCURL REQUIRED libcurl)
+message(STATUS "LIBCURL_LIBRARIES = ${LIBCURL_LIBRARIES}")
+message(STATUS "LIBCURL_LIBRARY_DIRS = ${LIBCURL_LIBRARY_DIRS}")
+message(STATUS "LIBCURL_INCLUDE_DIRS = ${LIBCURL_INCLUDE_DIRS}")
+include_directories(${LIBCURL_INCLUDE_DIRS})
+
+add_executable(SimpleReq simple_request.cpp)
+target_link_libraries(SimpleReq PUBLIC ${CURLCPP_LIBRARIES})
+target_link_libraries(SimpleReq PUBLIC ${LIBCURL_LIBRARIES})
